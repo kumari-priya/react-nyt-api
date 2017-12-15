@@ -1,1 +1,1 @@
-# react-nyt-api
+# react-nyt-api-homework
