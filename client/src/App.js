@@ -16,26 +16,32 @@ class App extends Component {
     isLoading: true,
   };
 
+  getArticles() {
+        // This variable will be pre-programmed with our authentication key
+        // (the one we received when we registered)
+        var authKey = "b9f91d369ff59547cd47b931d8cbc56b:0:74623931";
+
+        // queryURLBase is the start of our API endpoint. The searchTerm will be appended to this when
+        // the user hits the search button
+        var url = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=" +
+          authKey + "&q="+ this.state.articleSearch;
+
+          console.log(url);
+
+        axios.get(url)
+            .then((response) => {
+                console.log('this is response', response.data.response.docs);
+                this.setState({
+                    isLoading: false,
+                    articles: response.data.response.docs,
+                });
+            });
+
+  }
+
   componentDidMount() {
     console.log('component mounted!!!');
-
-    // This variable will be pre-programmed with our authentication key
-    // (the one we received when we registered)
-    var authKey = "b9f91d369ff59547cd47b931d8cbc56b:0:74623931";
-
-    // queryURLBase is the start of our API endpoint. The searchTerm will be appended to this when
-    // the user hits the search button
-    var url = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=" +
-      authKey + "&q="+ this.state.articleSearch;
-
-    axios.get(url)
-        .then((response) => {
-            console.log('this is response', response.data.response.docs);
-            this.setState({
-                isLoading: false,
-                articles: response.data.response.docs,
-            });
-        });
+    this.getArticles();
   }
 
   handleInputChange = event => {
@@ -49,35 +55,13 @@ class App extends Component {
   };
 
   handleFormSubmit = event => {
-
-  event.preventDefault();
-
-    // This variable will be pre-programmed with our authentication key
-    // (the one we received when we registered)
-    var authKey = "b9f91d369ff59547cd47b931d8cbc56b:0:74623931";
-
-    // queryURLBase is the start of our API endpoint. The searchTerm will be appended to this when
-    // the user hits the search button
-    var url = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=" +
-      authKey + "&q="+ this.state.articleSearch;
-
-      console.log(url);
-
-    axios.get(url)
-        .then((response) => {
-            console.log('this is response', response.data.response.docs);
-            this.setState({
-                isLoading: false,
-                articles: response.data.response.docs,
-            });
-        });
-
+    event.preventDefault();
+    this.getArticles();
   };
 
+
   handleSave = event => {
-
-alert('saved!');
-
+    alert('saved!');
   };
 
 
