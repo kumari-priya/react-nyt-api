@@ -87,7 +87,7 @@ class App extends Component {
                       name="articleSearch"
                       value={this.state.articleSearch}
                       onChange={this.handleInputChange}
-                      placeholder="Search For a Recipe"
+                      placeholder="Search For an Article"
                     />
                   </Col>
                   <Col size="xs-3 sm-2">
